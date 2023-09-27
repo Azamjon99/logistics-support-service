@@ -2,31 +2,30 @@ package services
 
 import (
 	"context"
-	"logistics-support-service/src/domain/models"
-	repositories "logistics-support-service/src/domain/repository"
+	"github.com/Azamjon99/logistics-support-service/src/domain/models"
+	repositories "github.com/Azamjon99/logistics-support-service/src/domain/repository"
 	"time"
 )
 
 type RatingService interface {
-	CreateRating(ctx context.Context, ratingID, orderID string, ratingValue int, comment string) (*models.Rating, error)
+	CreateRating(ctx context.Context,  orderID string, ratingValue int, comment string) (*models.Rating, error)
 	UpdateRating(ctx context.Context, ratingID string, ratingValue int, comment string) (*models.Rating, error)
 	GetRating(ctx context.Context, ratingID string) (*models.Rating, error)
-	GetRatingByOrder(ctx context.Context, orderID string) (*models.Rating, error)
+	GetRatingbyOrder(ctx context.Context, orderID string) (*models.Rating, error)
 	}
 
 type ratingSvcImpl struct {
 	ratingRepo repositories.RatingRepository
 }
 
-func NewRatingSvc(repositories.RatingRepository) RatingService{
+func NewRatingSvc( ratingRepo repositories.RatingRepository) RatingService{
 	return &ratingSvcImpl{
 		ratingRepo: ratingRepo,
 	}
 }
 
-func (s *ratingSvcImpl) CreateRating(ctx context.Context, ratingID, orderID string, ratingValue int, comment string)(*models.Rating, error){
+func (s *ratingSvcImpl) CreateRating(ctx context.Context,  orderID string, ratingValue int, comment string)(*models.Rating, error){
 	rating :=  &models.Rating{
-		ID:ratingID,
 		OrderID: orderID,
 		Rating: ratingValue,
 		Comment: comment,
@@ -43,22 +42,21 @@ func (s *ratingSvcImpl) CreateRating(ctx context.Context, ratingID, orderID stri
 	return rating, nil;
 }
 
-func (s *ratingSvcImpl) UpdateRating(ctx context.Context, ratingID, orderID string, ratingValue int, comment string)(*models.Rating, error){
-	rating :=  &models.Rating{
-		ID:ratingID,
-		OrderID: orderID,
-		Rating: ratingValue,
-		Comment: comment,
+func (s *ratingSvcImpl) UpdateRating(ctx context.Context, ratingID string, ratingValue int, comment string) (*models.Rating, error) {
+	rating := &models.Rating{
+		ID:       ratingID,
+		Rating:   ratingValue,
+		Comment:  comment,
 		UpdatedAt: time.Now().UTC(),
 	}
 
-	err:= s.ratingRepo.UpdateRating(ctx, rating)
+	err := s.ratingRepo.UpdateRating(ctx, rating)
 
 	if err != nil {
 		return nil, err
 	}
 
-	return rating, nil;
+	return rating, nil
 }
 
 func (s *ratingSvcImpl) GetRating(ctx context.Context, ratingID string)(*models.Rating, error){

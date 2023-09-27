@@ -1,13 +1,29 @@
 package dtos
 
-import "logistics-support-service/src/domain/models"
+import (
+	"encoding/json"
+	pb "github.com/Azamjon99/logistics-support-service/src/application/protos/logistic-support"
 
-type GetRatingResponse struct {
-	Rating *models.Rating `json:"rating"`
-}
+)
 
-func NewGetRatingResponse(rating *models.Rating) *GetRatingResponse {
-	return &GetRatingResponse{
-		Rating: rating,
-	}
+func ConvertToRatingResponse(result interface{}) (*pb.RatingResponse, error) {
+    resultJSON, err := json.Marshal(result)
+    if err != nil {
+        return nil, err
+    }
+
+    var resultMap map[string]interface{}
+    if err := json.Unmarshal(resultJSON, &resultMap); err != nil {
+        return nil, err
+    }
+
+
+    rating := &pb.Rating{
+    }
+
+    response := &pb.RatingResponse{
+        Rating: rating,
+    }
+
+    return response, nil
 }

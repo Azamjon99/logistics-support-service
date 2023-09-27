@@ -2,7 +2,7 @@ package repositories
 
 import (
 	"context"
-	"logistics-support-service/src/domain/models"
+	"github.com/Azamjon99/logistics-support-service/src/domain/models"
 )
 
 type RatingRepository interface {
