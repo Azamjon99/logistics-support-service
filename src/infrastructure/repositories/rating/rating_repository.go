@@ -2,8 +2,8 @@ package rating
 
 import (
 	"context"
-	"logistics-support-service/src/domain/models"
-	repositories "logistics-support-service/src/domain/repository"
+	"github.com/Azamjon99/logistics-support-service/src/domain/models"
+	repositories "github.com/Azamjon99/logistics-support-service/src/domain/repository"
 
 	"gorm.io/gorm"
 )

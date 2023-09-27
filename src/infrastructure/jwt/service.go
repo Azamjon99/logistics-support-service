@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt/v4"
-	"logistics-support-service/src/infrastructure/rand"
+	"github.com/Azamjon99/logistics-support-service/src/infrastructure/rand"
 )
 
 type Service interface {

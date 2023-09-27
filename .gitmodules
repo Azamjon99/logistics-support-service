@@ -1,0 +1,3 @@
+[submodule "src/infrastructure/services-proto"]
+	path = src/infrastructure/services-proto
+	url = https://github.com/Azamjon99/services-proto.git
